@@ -1,25 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from'react';
+import {getAllPokemon} from "./utiles/pokemon";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const pokemonEndpoint =  "https://pokeapi.co/api/v2/pokemon"
+
+  useEffect(() => {
+    const fetchPokemonData = async () => {
+      let res = await getAllPokemon(pokemonEndpoint)
+      console.log(res)
+    }
+
+    // 上記関数を呼び出して発火させる
+    fetchPokemonData()
+  }, [
+  ])
+
+  return <div className="App"></div>
 }
+
+// 導入したプラグイン
+// https://duckly.com/blog/best-webstorm-plugins-for-2022/
 
 export default App;
