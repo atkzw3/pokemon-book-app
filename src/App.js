@@ -1,13 +1,19 @@
 import './App.css';
-import React, { useEffect } from'react';
+import React, {useEffect, useState} from 'react';
 import {getAllPokemon} from "./utiles/pokemon";
 
 function App() {
   const pokemonEndpoint =  "https://pokeapi.co/api/v2/pokemon"
+  // 読み込み中はローディングする処理
+  const [loading, setLoading] = useState(true)
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
   useEffect(() => {
+    // promiseの際は async/awaitを使う
     const fetchPokemonData = async () => {
       let res = await getAllPokemon(pokemonEndpoint)
+      await sleep(5000)
+      setLoading(false)
       console.log(res)
     }
 
@@ -16,7 +22,9 @@ function App() {
   }, [
   ])
 
-  return <div className="App"></div>
+  return <div className="App">
+    {loading? "Loading..." : (<h1>ポケモンデータを取得しました</h1>)}
+  </div>
 }
 
 // 導入したプラグイン
