@@ -11,3 +11,16 @@ export const getAllPokemon = (url) => {
             .then(data => resolve(data))
     })
 }
+
+export const getPokemonRecord = async (url) => {
+    return new Promise((resolve, reject) => {
+        fetch(url)
+            // 成功した時のデータを取得
+            .then(response => response.json())
+            // 上記のjsonデータをレスポンスとして返す
+            .then(data => {
+                console.log("pokemon 個別データ", data)
+                resolve(data)
+            })
+    })
+}
