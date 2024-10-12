@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
 import {getAllPokemon, getPokemonRecord} from "./utiles/pokemon";
-import Card from "./components/Card";
+import Card from "./components/Card/Card";
 
 function App() {
   const pokemonEndpoint =  "https://pokeapi.co/api/v2/pokemon"
@@ -16,7 +16,7 @@ function App() {
       let res = await getAllPokemon(pokemonEndpoint)
       await sleep(5000)
       // 各ポケモンデータ取得
-      loadPokemon(res.results)
+      await loadPokemon(res.results)
 
       setLoading(false)
       console.log(res)
