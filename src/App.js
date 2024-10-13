@@ -2,6 +2,7 @@ import './App.css';
 import React, {useEffect, useState} from 'react';
 import {getAllPokemon, getPokemonRecord} from "./utiles/pokemon";
 import Card from "./components/Card/Card";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const pokemonEndpoint =  "https://pokeapi.co/api/v2/pokemon"
@@ -41,20 +42,25 @@ function App() {
 
   console.log("pokemonData", pokemonData)
 
-  return <div className="App">
-    {loading? "Loading..." : (
-        <>
-          <div className="pokemonCardContainer">
-            {pokemonData.map((pokemon, i) => {
-                  return (
-                    <Card key={i} className="pokemonCard" pokemon={pokemon}>
-                    </Card>
-                  )
-                })}
-          </div>
-        </>
-    )}
-  </div>
+  return (
+      <>
+        <Navbar />
+        <div className="App">
+          {loading? "Loading..." : (
+            <>
+              <div className="pokemonCardContainer">
+                {pokemonData.map((pokemon, i) => {
+                      return (
+                        <Card key={i} className="pokemonCard" pokemon={pokemon}>
+                        </Card>
+                      )
+                    })}
+              </div>
+            </>
+        )}
+        </div>
+      </>
+  )
 }
 
 // 導入したプラグイン
