@@ -10,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
   const [pokemonData, setPokemonData] = useState([])
+  const [nextURL, setNextURL] = useState("")
 
   useEffect(() => {
     // promiseの際は async/awaitを使う
@@ -19,8 +20,9 @@ function App() {
       // 各ポケモンデータ取得
       await loadPokemon(res.results)
 
+      setNextURL(res.next)
       setLoading(false)
-      console.log(res)
+      console.log("ポケモン全データ", res)
     }
 
     // 上記関数を呼び出して発火させる
@@ -42,6 +44,19 @@ function App() {
 
   console.log("pokemonData", pokemonData)
 
+  const handlePrevPage = async () => {
+  }
+
+  const handleNextPage = async () => {
+    setLoading(true)
+    console.log("次のURL", nextURL)
+    let data = await getAllPokemon(nextURL)
+    console.log("次のデータ", data)
+
+    await loadPokemon(data.results)
+    setLoading(false)
+  }
+
   return (
       <>
         <Navbar />
@@ -56,8 +71,12 @@ function App() {
                       )
                     })}
               </div>
+              <div className="btn">
+                <button onClick={handlePrevPage}>前へ</button>
+                <button onClick={handleNextPage}>次へ</button>
+              </div>
             </>
-        )}
+          )}
         </div>
       </>
   )
