@@ -11,6 +11,7 @@ function App() {
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
   const [pokemonData, setPokemonData] = useState([])
   const [nextURL, setNextURL] = useState("")
+  const [prevURL, setPrevURL] = useState("")
 
   useEffect(() => {
     // promiseの際は async/awaitを使う
@@ -21,6 +22,7 @@ function App() {
       await loadPokemon(res.results)
 
       setNextURL(res.next)
+      setPrevURL(res.previous)
       setLoading(false)
       console.log("ポケモン全データ", res)
     }
@@ -45,6 +47,21 @@ function App() {
   console.log("pokemonData", pokemonData)
 
   const handlePrevPage = async () => {
+    setLoading(true)
+    console.log("前のURL", prevURL)
+
+    if (!prevURL){
+      console.log("前のURLが存在しない")
+      setLoading(false)
+      return;
+    }
+
+    let data = await getAllPokemon(prevURL)
+
+    await loadPokemon(data.results)
+    setPrevURL(data.previous)
+    setNextURL(data.next)
+    setLoading(false)
   }
 
   const handleNextPage = async () => {
@@ -55,6 +72,7 @@ function App() {
 
     await loadPokemon(data.results)
     setNextURL(data.next)
+    setPrevURL(data.previous)
     setLoading(false)
   }
 
