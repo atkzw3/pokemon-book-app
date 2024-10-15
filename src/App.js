@@ -54,6 +54,7 @@ function App() {
     console.log("次のデータ", data)
 
     await loadPokemon(data.results)
+    setNextURL(data.next)
     setLoading(false)
   }
 
