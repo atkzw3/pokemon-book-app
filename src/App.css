@@ -22,3 +22,19 @@
 .cardInfo {
   text-align: center;
 }
+
+.btn {
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn button{
+  padding: 13px 32px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
